@@ -14,18 +14,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var optionOneButton: UIButton!
     @IBOutlet weak var optionTwoButton: UIButton!
     
-    let story0 = "You see a fork in the road."
-    let choice1 = "Take a left."
-    let choice2 = "Take a right."
+    var story = StoryBrain()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        storyLabel.text = story0
-        optionOneButton.setTitle(choice1, for: .normal)
-        optionTwoButton.setTitle(choice2, for: .normal)
+        storyLabel.text = story.story[0].title
+        
+        optionOneButton.setTitle(story.story[0].choice1, for: .normal)
+        optionTwoButton.setTitle(story.story[0].choice2, for: .normal)
+        
+        optionOneButton.tag = story.story[0].choice1Destination // = 2
+        optionTwoButton.tag = story.story[0].choice2Destination // = 1
     }
 
     @IBAction func choiceClicked(_ sender: UIButton) {
+        var storyIndex = sender.tag
+        storyLabel.text = story.story[storyIndex].title
+        
+        optionOneButton.setTitle(story.story[storyIndex].choice1, for: .normal)
+        print("Option 1 Choice: \(story.story[storyIndex].choice1)" )
+        optionTwoButton.setTitle(story.story[storyIndex].choice2, for: .normal)
+        print("Option 2 Choice: \(story.story[storyIndex].choice2)" )
+
+        print("Current Tag: \(storyIndex)")
+        optionOneButton.tag = story.story[storyIndex].choice1Destination
+        print("Option 1 Button Tag = \(story.story[storyIndex].choice1Destination)")
+        optionTwoButton.tag = story.story[storyIndex].choice2Destination
+        print("Option 2 Button Tag = \(story.story[storyIndex].choice2Destination)")
     }
     
 }
